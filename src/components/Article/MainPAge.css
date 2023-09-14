@@ -1,0 +1,19 @@
+.mainBody {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100%;
+  gap: 1rem;
+  margin: 0 15rem;
+  padding: 1em;
+  padding-top: 5em;
+  /* box-shadow: 0 2px 7px rgba(248, 248, 248, 0.25); */
+}
+.jcCenter {
+  justify-content: center;
+}
+@media (max-width: 840px) {
+  .mainBody {
+    margin: 0 2rem;
+  }
+}
+
