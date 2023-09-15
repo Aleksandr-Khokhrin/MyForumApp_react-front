@@ -27,6 +27,7 @@ const DrawerMenu = (props) => {
     const theme = useTheme();
     const { open, toggleDrawer } = props;
     const [categoryState, setCategoryState] = useState('')
+    const [userName, setUserName] = useState('')
     const categoryClick = (event) => {
         const newCategory = event.target.textContent;
         setCategoryState(newCategory);
@@ -48,6 +49,9 @@ const DrawerMenu = (props) => {
             document.addEventListener('mousedown', handleClick)
         }
     }, [wrapRef])
+    useEffect(() => {
+        setUserName(props.userData.fullName)
+    }, [userName])
 
 
     return (
@@ -63,7 +67,10 @@ const DrawerMenu = (props) => {
                     }}
                 >
                     <div className={classes.drawerHeader}>
-                            Excio-FM
+                        <div className={classes.userNameBox}>
+                            {props.userData.fullName === 'Excio-FM' ? props.userData.fullName : `Hello, ${props.userData.fullName}!`}
+                            
+                        </div>
                         <IconButton onClick={toggleDrawer}>
                             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                         </IconButton>

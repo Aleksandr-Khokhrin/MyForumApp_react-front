@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, TextField, Button, Typography, Grid } from "@material-ui/core";
 import UserProfilePassword from "./UserProfilePassword";
+import useStyles from "./ProfileStyles";
 
 
 const UserProfileHeader = ({
@@ -33,27 +34,25 @@ const UserProfileHeader = ({
                             onChange={handlePhotoChange}
                         />
                     ) : (
-                        <Typography>{user.photoURL}</Typography>
+                        <Typography>{ }</Typography>
                     )}
                 </div>
             </Grid>
             <Grid item xs={12} md={8}>
-                <div>
-                    <TextField
-                        label="Имя"
-                        fullWidth
-                        value={user.name}
-                        onChange={handleNameChange}
-                        disabled={!isEditing}
-                    />
-                    <TextField
-                        label="Email"
-                        fullWidth
-                        value={user.email}
-                        onChange={handleEmailChange}
-                        disabled={!isEditing}
-                    />
-                </div>
+                <TextField
+                    label="Имя"
+                    fullWidth
+                    value={user.name}
+                    onChange={handleNameChange}
+                    disabled={!isEditing}
+                />
+                <TextField
+                    label="Email"
+                    fullWidth
+                    value={user.email}
+                    onChange={handleEmailChange}
+                    disabled={!isEditing}
+                />
             </Grid>
             <Grid item xs={12}>
                 {isEditing ? (

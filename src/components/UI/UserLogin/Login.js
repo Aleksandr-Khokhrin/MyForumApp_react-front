@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container } from "@material-ui/core";
 import useStyles from './LoginStyle';
+import LoginFetchRequest from "../requests/LoginFetchRequest";
 
 
 const Login = (props) => {
@@ -16,18 +17,26 @@ const Login = (props) => {
         setPassword(e.target.value);
 
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Здесь вы можете выполнить проверку и отправку данных на сервер
         const userData = {
-            email: email,
-            password: password,
+          email: email,
+          password: password,
         };
-        console.log(userData)
-        props.onOpenProfile(true)
-        setEmail('')
-        setPassword('')
-    };
+    
+        try {
+          const data = await LoginFetchRequest(userData);
+        //   console.log(data);
+          props.userInfo(data)
+    
+          props.onOpenProfile(true);
+          setEmail('');
+          setPassword('');
+        } catch (error) {
+          // Handle errors here
+          console.error('Error:', error);
+        }
+      };
 
     const goToSinginPage = () => {
         props.onloginState(false)

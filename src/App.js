@@ -51,6 +51,7 @@ function App() {
   ];
   const [categoryState, setCategoryState] = useState(''); // Состояние для хранения выбранной категории
   const [userStatePage, setUserStatePage] = useState('Login')
+  const [userData, setUserData] = useState({fullName: 'Excio-FM'})
 
   const saveClickDataHandler = (chooseCategory) => {
     setCategoryState(chooseCategory);
@@ -59,16 +60,27 @@ function App() {
   useEffect(() => {
     // console.log(categoryState);
   }, [categoryState]);
+  
 
   const openPageCallHandler = (elem) => {
     setUserStatePage(elem)
   }
+  const userInfo = (data) => {
+    setUserData(data)
+    // console.log(data)
+  }
+  useEffect(() => {
+    // console.log(userData); 
+  }, [userData]);
+  
+ 
+
 
 
   return (
     <Box bgcolor="primary.main" style={{ minHeight: '100vh' }}>
-      <Header userStatePage={userStatePage}  onSaveClickData={saveClickDataHandler} />
-      <MainPage onOpenPageCall={openPageCallHandler} categoryState={categoryState} articles={articles} />
+      <Header userData={userData} userStatePage={userStatePage} onSaveClickData={saveClickDataHandler} />
+      <MainPage userInfo={userInfo} onOpenPageCall={openPageCallHandler} categoryState={categoryState} articles={articles} />
     </Box>
   );
 }

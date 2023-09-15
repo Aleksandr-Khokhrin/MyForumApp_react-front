@@ -4,6 +4,7 @@ import SingIn from "./SingIn";
 
 const LoginBox = (props) => {
     const [login, setLogin] = useState(true)
+    const [userInform, setUserInform] = useState()
 
     const loginStateHandler = (elem) => {
         setLogin(elem)
@@ -11,11 +12,14 @@ const LoginBox = (props) => {
     const openProfileHandler = (elem => {
         props.onOpenProfile(elem)
     })
+    const userInfo = (data) => {
+        props.userInfo(data)
+    }
     return (
         <div>
             {
-            login ? <Login onOpenProfile={openProfileHandler} onloginState={loginStateHandler}/> 
-            : <SingIn onOpenProfile={openProfileHandler} onloginState={loginStateHandler}/>
+                login ? <Login userInfo={userInfo} onOpenProfile={openProfileHandler} onloginState={loginStateHandler} />
+                    : <SingIn onOpenProfile={openProfileHandler} onloginState={loginStateHandler} />
             }
         </div>
     )

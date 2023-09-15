@@ -57,7 +57,7 @@ const Header = (props) => {
                     </div>
                 </Toolbar>
             </AppBar>
-            <DrawerMenu userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
+            <DrawerMenu userData={props.userData} userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
         </div>
     );
 };

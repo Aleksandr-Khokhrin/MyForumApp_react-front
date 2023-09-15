@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+        background: 'linear-gradient(to bottom, #33ccff 0%, #6699ff 100%)'
     },
     content: {
         flexGrow: 1,
@@ -62,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
+    userNameBox: {
+        fontSize: 20,
+        textShadow: '1px 1px 2px pink',
+    }
 }));
 
 export default useStyles;

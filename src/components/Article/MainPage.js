@@ -7,7 +7,8 @@ import LoginBox from "../UI/UserLogin/LoginBox";
 
 const MainPage = (props) => {
     const [categoryArticle, setCategoryArticle] = useState('');
-    const [openProfile, setOpenProfile] = useState(false)
+    const [openProfile, setOpenProfile] = useState(false);
+    const [userData, setUserData] = useState({fullName: 'Excio-FM'})
     let correctList;
 
     useEffect(() => {
@@ -23,8 +24,8 @@ const MainPage = (props) => {
     } else if (categoryArticle === 'Books') {
         correctList = props.articles.filter(article => article.category === 'BOOK');
     } else {
-            correctList = props.articles
-    } 
+        correctList = props.articles
+    }
 
     const articles = correctList.map((elem, i) => {
         // let zIndex = 9999 - i;
@@ -46,17 +47,23 @@ const MainPage = (props) => {
         setOpenProfile(true)
         setCategoryArticle('Main Page')
         props.onOpenPageCall('My profile')
-        console.log('Привет из MainPage')
     }
+    const userInfo = (data) => {
+        setUserData(data)
+        props.userInfo(data)
+    }
+    useEffect(() => {
+        console.log(userData);
+      }, [userData]);
 
     return (
 
         <div >
             {categoryArticle === 'Login' ?
-            <div className="mainBody jcCenter"><LoginBox onOpenProfile={openProfileHandler}/></div> :
-            categoryArticle === 'My profile' ?
-            <div className="mainBody"><OpenProfile/></div> :
-            <div className="mainBody">{articles}</div>}
+                <div className="mainBody jcCenter"><LoginBox userInfo={userInfo} onOpenProfile={openProfileHandler} /></div> :
+                categoryArticle === 'My profile' ?
+                    <div className="mainBody"><OpenProfile userData={userData}/></div> :
+                    <div className="mainBody">{articles}</div>}
         </div>
     )
 };

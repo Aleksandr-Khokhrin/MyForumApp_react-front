@@ -12,12 +12,24 @@ import LikedArticles from "./LikedArticles";
 import CreateArticleDialog from "./CreateArticleDialog";
 import useStyles from "./ProfileStyles";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+    let dateString = props.userData.createdAt;
+    let dateObject = new Date(dateString);
+    const year = dateObject.getFullYear();
+    let month = dateObject.getMonth() + 1; // Месяцы начинаются с 0
+    if (month < 10) {
+        month = '0' + month
+    }
+    let day = dateObject.getDate();
+    if (day < 10) {
+        day = '0' + day
+    }
     const [user, setUser] = useState({
-        photoURL: "",
-        name: "",
-        email: "",
-        password: "",
+        photoURL: props.userData.avatarUrl,
+        name: props.userData.fullName,
+        email: props.userData.email,
+        password: '',
+        regDate: day + '-' + month + '-' + year,
         likedArticles: [],
     });
     const classes = useStyles()
@@ -106,8 +118,7 @@ const UserProfile = () => {
 
 
     return (
-        <Container className={classes.root}>
-            <Container></Container>
+        <div className={classes.root}>
             <UserProfileHeader
                 user={user}
                 isEditing={isEditing}
@@ -125,7 +136,7 @@ const UserProfile = () => {
             <LikedArticles
                 user={user}
                 handleCreateArticle={handleCreateArticle}
-                />
+            />
             <CreateArticleDialog
                 isOpen={createArticleOpen}
                 handleClose={handleCloseCreateArticle}
@@ -136,10 +147,11 @@ const UserProfile = () => {
                 handleSaveArticle={handleSaveArticle}
                 newArticle={newArticle}
             />
+            <div>Дата регистрации профиля: {user.regDate}</div>
             <Button variant="outlined" color="secondary" onClick={handleLogout}>
                 Выйти из профиля
             </Button>
-        </Container>
+        </div>
     );
 };
 

@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import UserProfile from "./Profile";
 
-const OpenProfile = () => {
-
-
-
-
+const OpenProfile = (props) => {
     return (
         <div>
-            <UserProfile/>
+            <UserProfile userData={props.userData}/>
         </div>
     )
 }
