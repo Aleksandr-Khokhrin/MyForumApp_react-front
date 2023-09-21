@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, TextField, Button, Typography, Grid } from "@material-ui/core";
 import UserProfilePassword from "./UserProfilePassword";
+import { useSelector } from 'react-redux';
+
 import useStyles from "./ProfileStyles";
 
 
@@ -13,19 +15,29 @@ const UserProfileHeader = ({
     handlePhotoChange,
     handleNameChange,
     handleEmailChange,
-    isPasswordEditing,
-    handleEditPassword,
-    handleSavePassword,
-    handlePasswordChange
 }) => {
+    const userData = useSelector((state) => state.auth.data);
+    const classes = useStyles()
+    const styles = {
+        placeholder: {
+          color: 'black', // Замените 'your-desired-color' на цвет, который вы хотите использовать
+        },
+      };
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} md={12}>
-                <Typography variant="h4">Мой профиль</Typography>
+                <Typography variant="h4">My profile</Typography>
             </Grid>
             <Grid item xs={12} md={10}>
                 <div>
-                    <Avatar alt="User Photo" style={{ padding: '2em 0', height: '4em', width: '10em' }} src={user.photoURL} />
+                    <Avatar
+                        alt="User Photo"
+                        style={{ padding: '0', height: '10em', width: '10em' }}
+                        src={user.photoURL}
+                        onError={(e) => {
+                            e.target.src = 'загрузите альтернативное изображение, если фото не может быть загружено';
+                        }}
+                    />
                     {isEditing ? (
                         <TextField
                             label="Фото пользователя (URL)"
@@ -40,16 +52,28 @@ const UserProfileHeader = ({
             </Grid>
             <Grid item xs={12} md={8}>
                 <TextField
-                    label="Имя"
+                    // label="Имя"
                     fullWidth
-                    value={user.name}
+                    InputProps={{
+                        style: {
+                            color: 'black',
+                            fontWeight: 'bold' // Установите желаемый цвет текста
+                        },
+                    }}
+                    placeholder={userData ? userData.userData.fullName : ""}
                     onChange={handleNameChange}
                     disabled={!isEditing}
                 />
                 <TextField
-                    label="Email"
+                    // label="Email"
+                    InputProps={{
+                        style: {
+                            color: 'black',
+                            fontWeight: 'bold'// Установите желаемый цвет текста
+                        },
+                    }}
                     fullWidth
-                    value={user.email}
+                    placeholder={userData ? userData.userData.email : ""}
                     onChange={handleEmailChange}
                     disabled={!isEditing}
                 />
@@ -57,14 +81,7 @@ const UserProfileHeader = ({
             <Grid item xs={12}>
                 {isEditing ? (
                     <div >
-                        <UserProfilePassword
-                            user={user}
-                            isPasswordEditing={isPasswordEditing}
-                            handleEditPassword={handleEditPassword}
-                            handleSavePassword={handleSavePassword}
-                            handleCancelEdit={handleCancelEdit}
-                            handlePasswordChange={handlePasswordChange}
-                        />
+                        
                         <Button variant="outlined" color="primary" onClick={handleSaveProfile}>
                             Сохранить
                         </Button>

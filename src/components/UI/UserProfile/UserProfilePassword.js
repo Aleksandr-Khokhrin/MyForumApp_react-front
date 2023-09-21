@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Button, TextField } from "@material-ui/core";
+import {Box, Typography, Button, TextField } from "@material-ui/core";
 import useStyles from "./ProfileStyles";
 
 
@@ -10,13 +10,26 @@ const UserProfilePassword = ({ user, isPasswordEditing, handleEditPassword, hand
 
         <div>
             {isPasswordEditing ? (
-                <TextField
-                    label="Пароль"
-                    fullWidth
-                    type="password"
-                    value={user.password}
-                    onChange={handlePasswordChange}
-                />
+                <Box className={classes.passwordBox}>
+                    <div>
+                    <TextField
+                        label="Старый пароль"
+                        type="text"
+                        value={user.password}
+                        onChange={handlePasswordChange}
+                    />
+
+                    </div>
+                    <div>
+
+                    <TextField
+                        label="Новый пароль"
+                        type="text"
+                        value={user.password}
+                        onChange={handlePasswordChange}
+                    />
+                    </div>
+                </Box>
             ) : (
                 <Typography></Typography>
             )}

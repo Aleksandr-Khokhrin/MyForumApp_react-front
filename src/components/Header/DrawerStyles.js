@@ -66,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
     userNameBox: {
         fontSize: 20,
         textShadow: '1px 1px 2px pink',
+    },
+    link: {
+        color: 'black',
+        textDecorationLine: 'none'
     }
 }));
 

@@ -19,7 +19,7 @@ const LoginBox = (props) => {
         <div>
             {
                 login ? <Login userInfo={userInfo} onOpenProfile={openProfileHandler} onloginState={loginStateHandler} />
-                    : <SingIn onOpenProfile={openProfileHandler} onloginState={loginStateHandler} />
+                    : <SingIn userInfo={userInfo} onOpenProfile={openProfileHandler} onloginState={loginStateHandler} />
             }
         </div>
     )

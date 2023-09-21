@@ -30,15 +30,25 @@ const useStyles = makeStyles((theme) => ({
     loadImg: {
         marginBottom: '2em',
     },
-    h5: {
-        margin: '0',
-        marginTop: '2em',
+    loadingIMG: {
+        marginBottom: '1em',
+        fontSize: '1em',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
     },
     marginLikedArticles: {
         margin: '0',
         marginBottom: '1em'
     },
-   
+    passwordBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: '1em'
+    },
+    placeholder: {
+        color: 'black'
+      },
 
 }));
 

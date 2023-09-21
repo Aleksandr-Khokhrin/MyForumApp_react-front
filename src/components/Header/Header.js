@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
+
+
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,6 +16,7 @@ import useStyles from './HeaderStyles';
 import DrawerMenu from './Drawer';
 
 const Header = (props) => {
+    const userData = useSelector((state) => state.auth.data);
     const classes = useStyles();
     const [drawerState, setDrawerState] = useState(false);
 
@@ -25,6 +30,7 @@ const Header = (props) => {
     const saveClickDataHandler = (chooseCategory) => {
         props.onSaveClickData(chooseCategory)
     }
+    
 
     return (
         <div className={classes.root}>
@@ -40,7 +46,7 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Excio-FM
+                        {userData ? `Hello, ${userData.userData.fullName}!`: "Excio-FM" }
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -57,7 +63,8 @@ const Header = (props) => {
                     </div>
                 </Toolbar>
             </AppBar>
-            <DrawerMenu userData={props.userData} userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
+            <DrawerMenu onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
+            {/* <DrawerMenu userData={props.userData} userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} /> */}
         </div>
     );
 };

@@ -1,85 +1,72 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link } from 'react-router-dom'
+
+
+
 import { TextField, Button, Typography, Container } from "@material-ui/core";
 import useStyles from './LoginStyle';
+import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
 
 
-const SingIn = (props) => {
+
+const SingIn = () => {
     const classes = useStyles()
-    const [email, setEmail] = useState("");
-    const [userName, setUserName] = useState("");
-    const [userSurname, setUserSurname] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordTwo, setPasswordTwo] = useState("");
+    const isAuth = useSelector(selectIsAuth);
+    const dispatch = useDispatch();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid },
+    } = useForm({
+        defaultValues: {
+            fullName: "",
+            email: "",
+            password: "",
+        },
+        mode: "onChange",
+    });
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-    const handleSurNameChange = (e) => {
-        setUserSurname(userSurname)
-    };
-    const handleNameChange = (e) => {
-        setUserName(e.target.value);
-    };
-
-    const handlePasswordFirstChange = (e) => {
-        setPassword(e.target.value);
-    };
-    const handlePasswordSecondChange = (e) => {
-        setPasswordTwo(e.target.value);
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (password !== passwordTwo) {
-            return alert('Passwords must be the same!')
-            // Здесь вы можете выполнить проверку и отправку данных на сервер
+    const onSubmit = async (values) => {
+        const data = await dispatch(fetchRegister(values));
+        if (!data.payload) {
+            return alert("Не удалось зарегистрироваться!");
         }
-        const userData = {
-            fullName: userName + ' ' + userSurname,
-            email: email,
-            passwordHash: password,
-            avatarUrl: '',
-        };
-        console.log(userData)
-        props.onOpenProfile(true)
-        setUserName('')
-        setUserSurname('')
-        setEmail('')
-        setPassword('')
+        if ("token" in data.payload) {
+            window.localStorage.setItem("token", data.payload.token);
+        }
     };
 
-    const goToLoginBtn = () => {
-        props.onloginState(true)
+    if (isAuth) {
+        return <Navigate to="/" />;
     }
+   
 
     return (
         <Container className={classes.root} >
             <Typography variant="h4" className={classes.label}>
                 Sing-in
             </Typography>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
-                    label="Name"
+                    label="Full name"
                     fullWidth
                     margin="normal"
                     variant="outlined"
-                    value={userName}
-                    onChange={handleNameChange}
-                />
-                <TextField
-                    label="Surname"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={userSurname}
-                    onChange={handleSurNameChange}
+                    error={Boolean(errors.fullName?.message)}
+                    helperText={errors.fullName?.message}
+                    {...register("fullName", { required: "Укажите полное имя" })}
                 />
                 <TextField
                     label="Email"
                     fullWidth
                     margin="normal"
                     variant="outlined"
-                    value={email}
-                    onChange={handleEmailChange}
+                    error={Boolean(errors.email?.message)}
+                    helperText={errors.email?.message}
+                    {...register("email", { required: "Укажите почту" })}
                 />
                 <TextField
                     label="Password"
@@ -87,29 +74,25 @@ const SingIn = (props) => {
                     margin="normal"
                     variant="outlined"
                     type="password"
-                    value={password}
-                    onChange={handlePasswordFirstChange}
-                />
-                <TextField
-                    label="Password"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    type="password"
-                    value={passwordTwo}
-                    onChange={handlePasswordSecondChange}
+                    error={Boolean(errors.password?.message)}
+                    helperText={errors.password?.message}
+                    {...register("password", { required: "Укажите пароль" })}
                 />
                 <div className={classes.buttonBox}>
+
+                    <Link to="/Login">
+                        <Button
+                            type="button"
+                            variant="outlined"
+                            color="primary"
+                            fullWidth
+                            size="large"
+                        >
+                            Login
+                        </Button>
+                    </Link>
                     <Button
-                        type="button"
-                        variant="outlined"
-                        color="primary"
-                        fullWidth
-                        size="large"
-                        onClick={goToLoginBtn}
-                    >
-                        Login
-                    </Button><Button
+                        disabled={!isValid}
                         type="submit"
                         variant="outlined"
                         color="secondary"

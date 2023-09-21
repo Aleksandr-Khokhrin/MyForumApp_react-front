@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, Navigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Link } from 'react-router-dom'
+import { selectIsAuth, logout } from "../../redux/slices/auth";
+import axios from "../../../axios";
+
+
 import {
     Container,
     Grid,
@@ -6,151 +14,91 @@ import {
     Button,
     Typography,
 } from "@material-ui/core";
-
 import UserProfileHeader from "./UserProfileHeader";
-import LikedArticles from "./LikedArticles";
-import CreateArticleDialog from "./CreateArticleDialog";
 import useStyles from "./ProfileStyles";
+import '../../MainPAge/MainPAge.css'
 
-const UserProfile = (props) => {
-    let dateString = props.userData.createdAt;
-    let dateObject = new Date(dateString);
-    const year = dateObject.getFullYear();
-    let month = dateObject.getMonth() + 1; // Месяцы начинаются с 0
-    if (month < 10) {
-        month = '0' + month
-    }
-    let day = dateObject.getDate();
-    if (day < 10) {
-        day = '0' + day
-    }
-    const [user, setUser] = useState({
-        photoURL: props.userData.avatarUrl,
-        name: props.userData.fullName,
-        email: props.userData.email,
-        password: '',
-        regDate: day + '-' + month + '-' + year,
-        likedArticles: [],
-    });
+
+const UserProfile = () => {
+    const dispatch = useDispatch()
+    const isAuth = useSelector(selectIsAuth);
+    const userData = useSelector((state) => state.auth.data);
     const classes = useStyles()
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [isPasswordEditing, setIsPasswordEditing] = useState(false);
 
-    const [createArticleOpen, setCreateArticleOpen] = useState(false);
-    const [newArticle, setNewArticle] = useState({
-        title: "",
-        content: "",
-        image: null,
-        rating: 5,
+
+    const [user, setUser] = useState({
+        avatarUrl: '',
+        fullName: '',
+        email: '',
     });
 
+    const [isEditing, setIsEditing] = useState(false);
     const handlePhotoChange = (event) => {
-        setUser({ ...user, photoURL: event.target.value });
+        setUser({ ...user, avatarUrl: event.target.value });
     };
 
     const handleNameChange = (event) => {
-        setUser({ ...user, name: event.target.value });
+        setUser({ ...user, fullName: event.target.value });
     };
 
     const handleEmailChange = (event) => {
         setUser({ ...user, email: event.target.value });
     };
-
-    const handlePasswordChange = (event) => {
-        setUser({ ...user, password: event.target.value });
+    const handleSaveProfile = async () => {
+        try {
+            const response = await axios.put('/upload', {
+                avatarUrl: user.avatarUrl,
+                fullName: user.fullName,
+                email: user.email,
+            });
+            console.log(response)
+        } catch (error) {
+            console.error('Ошибка при обновлении профиля:', error);
+            // Обработайте ошибку здесь
+        }
+        setIsEditing(false);
     };
+
 
     const handleEditProfile = () => {
         setIsEditing(true);
     };
 
-    const handleSaveProfile = () => {
-        setIsEditing(false);
-    };
 
-    const handleEditPassword = () => {
-        setIsPasswordEditing(true);
+    if (!window.localStorage.getItem("token") && !isAuth) {
+        return <Navigate to="/" />;
+    }
+    const onClickLogout = () => {
+        if (window.confirm('Вы действительно хотите выйти?')) {
+            dispatch(logout())
+            window.localStorage.removeItem('token')
+        }
     };
-
-    const handleSavePassword = () => {
-        setIsPasswordEditing(false);
-    };
-
-    const handleCancelEdit = () => {
-        setIsEditing(false);
-        setIsPasswordEditing(false);
-    };
-
-    const handleCreateArticle = () => {
-        setCreateArticleOpen(true);
-    };
-
-    const handleCloseCreateArticle = () => {
-        setCreateArticleOpen(false);
-    };
-
-    const handleArticleTitleChange = (event) => {
-        setNewArticle({ ...newArticle, title: event.target.value });
-    };
-
-    const handleArticleContentChange = (event) => {
-        setNewArticle({ ...newArticle, content: event.target.value });
-    };
-
-    const handleArticleImageChange = (event) => {
-        const file = event.target.files[0];
-        setNewArticle({ ...newArticle, image: file });
-    };
-
-    const handleRatingChange = (event, newValue) => {
-        setNewArticle({ ...newArticle, rating: newValue });
-    };
-
-    const handleSaveArticle = () => {
-        setCreateArticleOpen(false);
-        setNewArticle({ title: "", content: "", image: null, rating: 5 });
-    };
-
-    const handleLogout = () => {
-        // Реализуйте выход из профиля
-    };
-
 
     return (
-        <div className={classes.root}>
-            <UserProfileHeader
-                user={user}
-                isEditing={isEditing}
-                handleEditProfile={handleEditProfile}
-                handleSaveProfile={handleSaveProfile}
-                handleCancelEdit={handleCancelEdit}
-                handlePhotoChange={handlePhotoChange}
-                handleNameChange={handleNameChange}
-                handleEmailChange={handleEmailChange}
-                isPasswordEditing={isPasswordEditing}
-                handleEditPassword={handleEditPassword}
-                handleSavePassword={handleSavePassword}
-                handlePasswordChange={handlePasswordChange}
-            />
-            <LikedArticles
-                user={user}
-                handleCreateArticle={handleCreateArticle}
-            />
-            <CreateArticleDialog
-                isOpen={createArticleOpen}
-                handleClose={handleCloseCreateArticle}
-                handleArticleTitleChange={handleArticleTitleChange}
-                handleArticleContentChange={handleArticleContentChange}
-                handleArticleImageChange={handleArticleImageChange}
-                handleRatingChange={handleRatingChange}
-                handleSaveArticle={handleSaveArticle}
-                newArticle={newArticle}
-            />
-            <div>Дата регистрации профиля: {user.regDate}</div>
-            <Button variant="outlined" color="secondary" onClick={handleLogout}>
-                Выйти из профиля
-            </Button>
+        <div className="mainBody">
+            <div className={classes.root}>
+                <UserProfileHeader
+                    user={user}
+                    isEditing={isEditing}
+                    handleEditProfile={handleEditProfile}
+                    handleSaveProfile={handleSaveProfile}
+                    handlePhotoChange={handlePhotoChange}
+                    handleNameChange={handleNameChange}
+                    handleEmailChange={handleEmailChange}
+                />
+                <Link to='/add-post' className={classes.link}>
+                    <Button variant="outlined" color="primary" >
+                        Создать статью
+                    </Button>
+                </Link>
+
+                <div>Дата регистрации профиля: {userData?.userData.createdAt.slice(0, 10).split('-').reverse().join('.')}</div>
+                <Button onClick={onClickLogout} variant="outlined" color="secondary">
+                    Выйти из профиля
+                </Button>
+            </div>
         </div>
     );
 };
