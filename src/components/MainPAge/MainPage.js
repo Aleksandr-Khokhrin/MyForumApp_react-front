@@ -81,7 +81,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `http://localhost:4444/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}
@@ -99,7 +99,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `http://localhost:4444/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}
@@ -117,7 +117,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `http://localhost:4444/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}
