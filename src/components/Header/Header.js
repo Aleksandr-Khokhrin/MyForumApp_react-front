@@ -52,7 +52,7 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {userData && userData.userData && userData.userData.fullName !== undefined ? `Hello, ${userData.userData.fullName}!` : "Excio-FM"}                    </Typography>
+                        {userData ? `Hello, ${userData?.fullName}!` : "Excio-FM"}                    </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
