@@ -17,6 +17,7 @@ import DrawerMenu from './Drawer';
 
 const Header = (props) => {
     const userData = useSelector((state) => state.auth.data);
+    const posts = useSelector((state) => state.posts);
     const classes = useStyles();
     const [drawerState, setDrawerState] = useState(false);
 
@@ -64,6 +65,7 @@ const Header = (props) => {
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
+                        
                     </div>
                 </Toolbar>
             </AppBar>
