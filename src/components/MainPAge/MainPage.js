@@ -15,9 +15,7 @@ const MainPage = (props) => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.data);
     const { posts, tags } = useSelector((state) => state.posts);
-    // console.log(isAuth)
     const isArticlesLoading = posts.status === "loading";
-    const isTagsLoading = tags.status === "loading";
     const [category, setCategory] = useState('all')
     const [activeCategory, setActiveCategory] = useState('Все');
     useEffect(() => {
@@ -28,9 +26,6 @@ const MainPage = (props) => {
         setCategory(props.category)
     }, [props.category])
     useEffect(() => {
-        // console.log(`${userData?.userData._id} userData?.userData._id`)
-        // console.log(`${userData?._id} userData?._id`)
-        // console.log(userData)
     }, [userData])
 
 
@@ -50,7 +45,6 @@ const MainPage = (props) => {
             sortedPosts = sortedPosts.sort((a, b) => b.viewsCount - a.viewsCount);
             break;
         default:
-            // По умолчанию сортируем по чему-то еще, например, по _id
             sortedPosts = sortedPosts.sort((a, b) => b.estimation - a.estimation);
             break;
     }
