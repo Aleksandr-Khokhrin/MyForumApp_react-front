@@ -20,6 +20,11 @@ const Header = (props) => {
     const classes = useStyles();
     const [drawerState, setDrawerState] = useState(false);
 
+    useEffect(() => {
+        // console.log(userData?.userData.fullName)
+        // console.log(userData?.userData.fullName)
+    }, [userData])
+
     const openBurger = () => {
         setDrawerState(true);
     }
@@ -30,7 +35,7 @@ const Header = (props) => {
     const saveClickDataHandler = (chooseCategory) => {
         props.onSaveClickData(chooseCategory)
     }
-    
+
 
     return (
         <div className={classes.root}>
@@ -46,8 +51,7 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {userData ? `Hello, ${userData.userData.fullName}!`: "Excio-FM" }
-                    </Typography>
+                        {userData && userData.userData && userData.userData.fullName !== undefined ? `Hello, ${userData.userData.fullName}!` : "Excio-FM"}                    </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

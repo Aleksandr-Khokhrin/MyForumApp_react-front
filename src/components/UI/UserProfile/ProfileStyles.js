@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '2em',
     },
     loadingIMG: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1em',
         marginBottom: '1em',
         fontSize: '1em',
         display: 'flex',

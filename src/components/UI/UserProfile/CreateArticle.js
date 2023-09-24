@@ -90,7 +90,7 @@ const CreateArticle = (props) => {
             alert("Ошибка при загрузке файла!");
         }
     };
-   
+
 
     const handleRatingChange = (event, newValue) => {
         setEstimation(newValue);
@@ -132,7 +132,8 @@ const CreateArticle = (props) => {
                     setTitle(data.title);
                     setText(data.text);
                     setImageUrl(data.imageUrl);
-                    setTags(data.tags.join(','));
+                    setTags(data.tags[0]);
+                    setEstimation(data.estimation)
                 })
                 .catch((err) => {
                     console.warn(err);
@@ -155,6 +156,18 @@ const CreateArticle = (props) => {
         }),
         []
     );
+
+    useEffect(() => {
+        // Здесь устанавливаем состояние чекбоксов исходя из значения, полученного с сервера (например, 'BOOK')
+        if (tags === 'BOOK') {
+          setState({ ...state, BOOK: true });
+        } else if (tags === 'FILM') {
+          setState({ ...state, FILM: true });
+        } else if (tags === 'GAME') {
+          setState({ ...state, GAME: true });
+        }
+      }, [tags]);
+
     if (!window.localStorage.getItem("token") && !isAuth) {
         return <Navigate to="/" />;
     }
@@ -165,35 +178,40 @@ const CreateArticle = (props) => {
 
             <DialogContent>
                 <div className={classes.loadingIMG}>
-                    <Button
-                        onClick={() => inputFileRef.current.click()}
-                        variant="outlined"
-                        size="large"
-                    >
-                        Download IMG
-                    </Button>
-                    <input
-                        ref={inputFileRef}
-                        type="file"
-                        onChange={handleChangeFile}
-                        hidden
-                    />
-                    {imageUrl && (
-                        <>
-                            <Button
-                                variant="contained"
-                                color="error"
-                                onClick={onClickRemoveImage}
-                            >
-                                delete
-                            </Button>
-                            <img
-                                style={{ height: '20em' }}
-                                src={`http://localhost:4444/${imageUrl}`}
-                                alt="Uploaded"
-                            />
-                        </>
-                    )}
+                    <div>
+                        <Button
+                            onClick={() => inputFileRef.current.click()}
+                            variant="outlined"
+                            size="large"
+                        >
+                            Download IMG
+                        </Button>
+                        <input
+                            ref={inputFileRef}
+                            type="file"
+                            onChange={handleChangeFile}
+                            hidden
+                        />
+                    </div>
+                    <div className={classes.loadingIMG}>
+                        {imageUrl && (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    onClick={onClickRemoveImage}
+                                >
+                                    delete
+                                </Button>
+                                <img
+                                    style={{ width: '20em' }}
+                                    src={`http://localhost:4444/${imageUrl}`}
+                                    alt="Uploaded"
+                                />
+                            </>
+                        )}
+
+                    </div>
 
                 </div>
                 <div>Category:</div>
@@ -255,6 +273,7 @@ const CreateArticle = (props) => {
                     min={1}
                     max={10}
                     step={1}
+                    value={estimation}
                     valueLabelDisplay="auto"
                     aria-labelledby="rating-slider"
                 />

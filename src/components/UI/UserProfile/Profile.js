@@ -24,14 +24,21 @@ const UserProfile = () => {
     const isAuth = useSelector(selectIsAuth);
     const userData = useSelector((state) => state.auth.data);
     const classes = useStyles()
-
-
-
+    
+    
     const [user, setUser] = useState({
-        avatarUrl: '',
-        fullName: '',
-        email: '',
+        avatarUrl: userData?.avatarUrl,
+        fullName: userData?.fullName,
+        email: userData?.email,
     });
+    useEffect(() => {
+        setUser({
+            avatarUrl: userData?.avatarUrl,
+            fullName: userData?.fullName,
+            email: userData?.email,
+        });
+    }, [userData])
+    
 
     const [isEditing, setIsEditing] = useState(false);
     const handlePhotoChange = (event) => {
@@ -47,7 +54,7 @@ const UserProfile = () => {
     };
     const handleSaveProfile = async () => {
         try {
-            const response = await axios.put('/upload', {
+            const response = await axios.patch('/auth/me', {
                 avatarUrl: user.avatarUrl,
                 fullName: user.fullName,
                 email: user.email,
@@ -59,7 +66,9 @@ const UserProfile = () => {
         }
         setIsEditing(false);
     };
-
+    const handleCancelEdit = () => {
+        setIsEditing(false)
+    }
 
     const handleEditProfile = () => {
         setIsEditing(true);
@@ -85,6 +94,7 @@ const UserProfile = () => {
                     handleEditProfile={handleEditProfile}
                     handleSaveProfile={handleSaveProfile}
                     handlePhotoChange={handlePhotoChange}
+                    handleCancelEdit={handleCancelEdit}
                     handleNameChange={handleNameChange}
                     handleEmailChange={handleEmailChange}
                 />
@@ -94,7 +104,8 @@ const UserProfile = () => {
                     </Button>
                 </Link>
 
-                <div>Дата регистрации профиля: {userData?.userData.createdAt.slice(0, 10).split('-').reverse().join('.')}</div>
+                <div>Дата регистрации профиля: {userData?.createdAt.slice(0, 10).split('-').reverse().join('.')}</div>
+
                 <Button onClick={onClickLogout} variant="outlined" color="secondary">
                     Выйти из профиля
                 </Button>

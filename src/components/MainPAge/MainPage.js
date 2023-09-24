@@ -15,7 +15,7 @@ const MainPage = (props) => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.data);
     const { posts, tags } = useSelector((state) => state.posts);
-    // console.log(posts)
+    // console.log(isAuth)
     const isArticlesLoading = posts.status === "loading";
     const isTagsLoading = tags.status === "loading";
     const [category, setCategory] = useState('all')
@@ -27,6 +27,11 @@ const MainPage = (props) => {
     useEffect(() => {
         setCategory(props.category)
     }, [props.category])
+    useEffect(() => {
+        // console.log(`${userData?.userData._id} userData?.userData._id`)
+        // console.log(`${userData?._id} userData?._id`)
+        // console.log(userData)
+    }, [userData])
 
 
     const [value, setValue] = useState(2);
@@ -74,10 +79,10 @@ const MainPage = (props) => {
                     {(isArticlesLoading ? [...Array(5)] : posts.items).map((obj, index) =>
                         isArticlesLoading ? (
                             <Post key={index} isLoading={true} />
+                            
                         ) : obj.tags[0] === category ? (
-                            <div style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
+                            <div key={index} style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
                                 <Post
-                                    key={obj._id}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -89,13 +94,15 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    isEditable={userData?._id === obj.user._id}
+                                    // isEditable={userData && userData.userData && userData.userData._id !== undefined ? userData?.userData._id === obj.user._id : false} 
+                                    isEditable={userData?._id === obj.user._id} 
+                                    
+                                    // {userData?._id === obj.user._id}
                                 />
                             </div>
-                        ) : obj.user._id === category ? (
-                            <div style={{width: '100%',  height: '25em', paddingBottom: '2em'}}>
+                        ) : 'My reviews' === category && userData?._id === obj.user._id? (
+                            <div key={index} style={{width: '100%',  height: '25em', paddingBottom: '2em'}}>
                                 <Post
-                                    key={obj._id}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -107,13 +114,13 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    isEditable={userData?._id === obj.user._id}
+                                    // isEditable={userData?.userData._id === obj.user._id }
+                                    isEditable={userData?._id === obj.user._id} 
                                 />
                             </div>
                         ) : category === 'all' ? (
-                            <div style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
+                            <div key={index} style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
                                 <Post
-                                    key={obj._id}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -125,7 +132,8 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    isEditable={userData?._id === obj.user._id}
+                                    // isEditable={userData?._id === obj.user._id}
+                                    isEditable={userData?._id === obj.user._id} 
                                 />
                             </div>
                         ) : ''
