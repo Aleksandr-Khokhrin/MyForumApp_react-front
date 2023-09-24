@@ -65,15 +65,16 @@ export const Post = ({
       )}
       {imageUrl && (
         <img
+          style={{height: "55%"}}
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
           src={imageUrl}
           alt={title}
         />
       )}
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+        <UserInfo {...user} additionalText={createdAt.slice(0, 10).split('-').reverse().join('.')} />
         <div className={styles.indention}>
-          <h2 style={{fontSize: '2em'}} className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
+          <h2 style={{fontSize: '1.3em'}} className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
             {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}
           </h2>
           <ul className={styles.tags}>
@@ -117,7 +118,7 @@ export const Post = ({
         />
       )}
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+        <UserInfo {...user} additionalText={createdAt.slice(0, 10).split('-').reverse().join('.')} />
         <div className={styles.indention}>
           <h2 style={{fontSize: '2em'}} className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
             {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}

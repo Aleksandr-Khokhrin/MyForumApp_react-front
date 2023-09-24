@@ -43,7 +43,7 @@ const UserProfileHeader = ({
                     />
                     {isEditing ? (
                         <TextField
-                            label="Фото пользователя (URL)"
+                            label="Вставьте URL изображения для обновления своей аватарки"
                             fullWidth
                             value={user.photoURL}
                             onChange={handlePhotoChange}

@@ -39,6 +39,22 @@ const MainPage = (props) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    let sortedPosts = [...posts.items];
+
+    switch (activeCategory) {
+        case 'new':
+            sortedPosts = sortedPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            break;
+        case 'popular':
+            sortedPosts = sortedPosts.sort((a, b) => b.viewsCount - a.viewsCount);
+            break;
+        default:
+            // По умолчанию сортируем по чему-то еще, например, по _id
+            sortedPosts = sortedPosts.sort((a, b) => b.estimation - a.estimation);
+            break;
+    }
+
     return (
         <div>
             <Paper className="Paper" style={{ marginBottom: '1em', width: '36.5%' }}>
@@ -52,31 +68,31 @@ const MainPage = (props) => {
                 >
                     <Tab
                         style={{ width: '33%' }}
-                        label="Все"
-                        value="Все"
-                        className={`tab ${activeCategory === 'Все' ? 'active' : ''}`}
-                        onClick={() => setActiveCategory('Все')}
+                        label="TOP"
+                        value="TOP"
+                        className={`tab ${activeCategory === 'TOP' ? 'active' : ''}`}
+                        onClick={() => setActiveCategory('TOP')}
                     />
                     <Tab
                         style={{ width: '33%' }}
-                        label="Новые"
-                        value="Новые"
-                        className={`tab ${activeCategory === 'Новые' ? 'active' : ''}`}
-                        onClick={() => setActiveCategory('Новые')}
+                        label="new"
+                        value="new"
+                        className={`tab ${activeCategory === 'new' ? 'active' : ''}`}
+                        onClick={() => setActiveCategory('new')}
                     />
                     <Tab
                         style={{ width: '33%' }}
-                        label="Популярные"
-                        value="Популярные"
-                        className={`tab ${activeCategory === 'Популярные' ? 'active' : ''}`}
-                        onClick={() => setActiveCategory('Популярные')}
+                        label="popular"
+                        value="popular"
+                        className={`tab ${activeCategory === 'popular' ? 'active' : ''}`}
+                        onClick={() => setActiveCategory('popular')}
                     />
                 </Tabs>
             </Paper>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' }}>
-                    {(isArticlesLoading ? [...Array(5)] : posts.items).map((obj, index) =>
+            <div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' , alignItems: 'space-between'}}>
+                    {(isArticlesLoading ? [...Array(5)] : sortedPosts).map((obj, index) =>
                         isArticlesLoading ? (
                             <Post key={index} isLoading={true} />
 
@@ -95,10 +111,7 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    // isEditable={userData && userData.userData && userData.userData._id !== undefined ? userData?.userData._id === obj.user._id : false} 
                                     isEditable={userData?._id === obj.user._id}
-
-                                // {userData?._id === obj.user._id}
                                 />
                             </div>
                         ) : 'My reviews' === category && userData?._id === obj.user._id ? (
@@ -116,7 +129,6 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    // isEditable={userData?.userData._id === obj.user._id }
                                     isEditable={userData?._id === obj.user._id}
                                 />
                             </div>
@@ -135,7 +147,6 @@ const MainPage = (props) => {
                                     commentsCount={3}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
-                                    // isEditable={userData?._id === obj.user._id}
                                     isEditable={userData?._id === obj.user._id}
                                 />
                             </div>
