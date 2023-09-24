@@ -74,9 +74,12 @@ const CreateArticle = (props) => {
     useEffect(() => {
         console.log(estimation)
     }, [estimation])
+    console.log(id)
 
 
     const isEditing = Boolean(id)
+    useEffect(() => {
+    },[isEditing])
     const handleChangeFile = async (event) => {
         try {
             const formData = new FormData();
@@ -173,10 +176,10 @@ const CreateArticle = (props) => {
     }
 
     return (
-        <Dialog open={dialog}>
+        <Dialog open={dialog} >
             <DialogTitle>Write a review</DialogTitle>
 
-            <DialogContent>
+            <DialogContent >
                 <div className={classes.loadingIMG}>
                     <div>
                         <Button

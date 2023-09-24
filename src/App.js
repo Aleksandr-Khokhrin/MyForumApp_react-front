@@ -41,11 +41,7 @@ useEffect(() => {
             <Route path='/Films' element={<MainPage category='FILM' />} />
             <Route path='/Games' element={<MainPage category='GAME' />} />
             <Route path='/My reviews' element={<MainPage category='My reviews'/>} />
-            <Route path='/posts/:id' element={<FullPost />}/>
-              {/* <Route path='/posts/:id' element={<FullPost />}
-            {/* <Route path='/posts/:id' element={<FullPost />} />
-            <Route path='/posts/:id/edit' element={<AddPost />} />
-            <Route path='/add-post' element={<AddPost />} /> */} 
+            <Route path='/posts/:id' element={<FullPost size={true} />}/>
             <Route path='/posts/:id/edit' element={<CreateArticle open={true}/>} />
             <Route path='/add-post' element={<CreateArticle open={true} />} />
             <Route path='/profile' element={<UserProfile />} />

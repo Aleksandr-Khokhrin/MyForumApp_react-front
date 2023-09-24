@@ -74,15 +74,16 @@ const MainPage = (props) => {
                 </Tabs>
             </Paper>
 
-            <div>
-                <Grid xs={8} item>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' }}>
                     {(isArticlesLoading ? [...Array(5)] : posts.items).map((obj, index) =>
                         isArticlesLoading ? (
                             <Post key={index} isLoading={true} />
-                            
+
                         ) : obj.tags[0] === category ? (
-                            <div key={index} style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
+                            <div key={index} style={{ width: '35em', height: '25em', boxShadow: '0 2px 7px rgba(248, 248, 248, 0.25)' }}>
                                 <Post
+                                    size={true}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -95,14 +96,15 @@ const MainPage = (props) => {
                                     tags={obj.tags}
                                     estimation={obj.estimation}
                                     // isEditable={userData && userData.userData && userData.userData._id !== undefined ? userData?.userData._id === obj.user._id : false} 
-                                    isEditable={userData?._id === obj.user._id} 
-                                    
-                                    // {userData?._id === obj.user._id}
+                                    isEditable={userData?._id === obj.user._id}
+
+                                // {userData?._id === obj.user._id}
                                 />
                             </div>
-                        ) : 'My reviews' === category && userData?._id === obj.user._id? (
-                            <div key={index} style={{width: '100%',  height: '25em', paddingBottom: '2em'}}>
+                        ) : 'My reviews' === category && userData?._id === obj.user._id ? (
+                            <div key={index}>
                                 <Post
+                                    size={true}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -115,12 +117,13 @@ const MainPage = (props) => {
                                     tags={obj.tags}
                                     estimation={obj.estimation}
                                     // isEditable={userData?.userData._id === obj.user._id }
-                                    isEditable={userData?._id === obj.user._id} 
+                                    isEditable={userData?._id === obj.user._id}
                                 />
                             </div>
                         ) : category === 'all' ? (
-                            <div key={index} style={{width: '100%', height: '25em', paddingBottom: '2em'}}>
+                            <div key={index}>
                                 <Post
+                                    size={true}
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
@@ -133,12 +136,12 @@ const MainPage = (props) => {
                                     tags={obj.tags}
                                     estimation={obj.estimation}
                                     // isEditable={userData?._id === obj.user._id}
-                                    isEditable={userData?._id === obj.user._id} 
+                                    isEditable={userData?._id === obj.user._id}
                                 />
                             </div>
                         ) : ''
                     )}
-                </Grid>
+                </div>
                 {/* <Grid xs={4} item>
                     <CommentsBlock
                         items={[

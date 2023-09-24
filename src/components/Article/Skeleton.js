@@ -6,7 +6,7 @@ import styles from "./Post.module.scss";
 
 export const PostSkeleton = () => {
   return (
-    <div className={styles.skeleton}>
+    <div className={styles.skeleton} style={{ width: '35em', height: '25em', boxShadow: '0 2px 7px rgba(248, 248, 248, 0.25)'}}>
       <Stack spacing={1}>
         <Skeleton variant="rectangular" width="100%" height={300} />
         <div className={styles.skeletonContent}>

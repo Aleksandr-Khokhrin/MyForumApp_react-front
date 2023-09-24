@@ -34,6 +34,8 @@ export const FullPost = () => {
   return (
     <div>
       <Post 
+        width='100%'
+        height='100%'
         id={data._id}
         title={data.title}
         imageUrl={data.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${data.imageUrl}` : ''}
