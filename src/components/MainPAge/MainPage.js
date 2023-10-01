@@ -83,6 +83,7 @@ const MainPage = (props) => {
                     />
                 </Tabs>
             </Paper>
+            
 
             <div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' , alignItems: 'space-between'}}>
@@ -104,6 +105,7 @@ const MainPage = (props) => {
                                     viewsCount={obj.viewsCount}
                                     commentsCount={3}
                                     tags={obj.tags}
+                                    likes={obj.likes}
                                     estimation={obj.estimation}
                                     isEditable={userData?._id === obj.user._id}
                                 />
@@ -122,6 +124,7 @@ const MainPage = (props) => {
                                     viewsCount={obj.viewsCount}
                                     commentsCount={3}
                                     tags={obj.tags}
+                                    likes={obj.likes}
                                     estimation={obj.estimation}
                                     isEditable={userData?._id === obj.user._id}
                                 />
@@ -139,6 +142,7 @@ const MainPage = (props) => {
                                     createdAt={obj.createdAt}
                                     viewsCount={obj.viewsCount}
                                     commentsCount={3}
+                                    likes={obj.likes}
                                     tags={obj.tags}
                                     estimation={obj.estimation}
                                     isEditable={userData?._id === obj.user._id}

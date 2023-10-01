@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
+    // baseURL: 'http://localhost:4444/'
     baseURL: 'https://itransition-diplom-forum-node-600c7875a052.herokuapp.com'
 })
 

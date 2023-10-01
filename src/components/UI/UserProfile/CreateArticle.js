@@ -72,9 +72,9 @@ const CreateArticle = (props) => {
     const inputFileRef = useRef(null);
 
     useEffect(() => {
-        console.log(estimation)
+        // console.log(estimation)
     }, [estimation])
-    console.log(id)
+    // console.log(id)
 
 
     const isEditing = Boolean(id)
