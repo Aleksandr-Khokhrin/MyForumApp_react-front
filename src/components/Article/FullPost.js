@@ -47,6 +47,7 @@ export const FullPost = () => {
         commentsCount={3}
         tags={data.tags}
         estimation={data.estimation}
+        likes={data.likes}
         isFullPost>
         <ReactMarkdown children={data.text} />
       </Post>
