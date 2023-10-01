@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Grid from "@mui/material/Grid";
 import { Paper } from "@mui/material";
 
+import myImg from '../../image/logo.jpg';
 
 import { fetchPosts, fetchTags } from '../redux/slices/posts';
 import { Post } from '../Article/Post';
@@ -98,7 +99,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : myImg
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}
@@ -117,7 +118,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : myImg
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}
@@ -136,7 +137,7 @@ const MainPage = (props) => {
                                     id={obj._id}
                                     title={obj.title}
                                     imageUrl={
-                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : ""
+                                        obj.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${obj.imageUrl}` : myImg
                                     }
                                     user={obj.user}
                                     createdAt={obj.createdAt}

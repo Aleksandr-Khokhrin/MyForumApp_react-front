@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
+import myImg from '../../image/logo.jpg'
+
 import axios from "../../axios";
 
 import { Post } from "./Post";
@@ -38,7 +40,7 @@ export const FullPost = () => {
         height='100%'
         id={data._id}
         title={data.title}
-        imageUrl={data.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${data.imageUrl}` : ''}
+        imageUrl={data.imageUrl ? `https://itransition-diplom-forum-node-600c7875a052.herokuapp.com/${data.imageUrl}` : myImg}
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
