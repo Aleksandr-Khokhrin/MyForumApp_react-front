@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom'
+import { useTranslation } from "react-i18next";
 
 
 
@@ -13,6 +14,7 @@ import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
 
 
 const SingIn = () => {
+    const { t } = useTranslation()
     const classes = useStyles()
     const isAuth = useSelector(selectIsAuth);
     const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const SingIn = () => {
     const onSubmit = async (values) => {
         const data = await dispatch(fetchRegister(values));
         if (!data.payload) {
-            return alert("Не удалось зарегистрироваться!");
+            return alert(`${t('failedSing')}`);
         }
         if ("token" in data.payload) {
             window.localStorage.setItem("token", data.payload.token);
@@ -42,16 +44,16 @@ const SingIn = () => {
     if (isAuth) {
         return <Navigate to="/" />;
     }
-   
+
 
     return (
         <Container className={classes.root} >
             <Typography variant="h4" className={classes.label}>
-                Sing-in
+                {t('singIn')}
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
-                    label="Full name"
+                    label={t('fullname')}
                     fullWidth
                     margin="normal"
                     variant="outlined"
@@ -60,7 +62,7 @@ const SingIn = () => {
                     {...register("fullName", { required: "Укажите полное имя" })}
                 />
                 <TextField
-                    label="Email"
+                    label={t('email')}
                     fullWidth
                     margin="normal"
                     variant="outlined"
@@ -69,7 +71,7 @@ const SingIn = () => {
                     {...register("email", { required: "Укажите почту" })}
                 />
                 <TextField
-                    label="Password"
+                    label={t('password')}
                     fullWidth
                     margin="normal"
                     variant="outlined"
@@ -88,7 +90,7 @@ const SingIn = () => {
                             fullWidth
                             size="large"
                         >
-                            Login
+                            {t('login')}
                         </Button>
                     </Link>
                     <Button
@@ -99,7 +101,7 @@ const SingIn = () => {
                         fullWidth
                         size="large"
                     >
-                        Sing-in
+                        {t('singIn')}
                     </Button>
                 </div>
 

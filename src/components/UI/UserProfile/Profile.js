@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useTranslation } from "react-i18next";
+
 import { Link } from 'react-router-dom'
 import { selectIsAuth, logout } from "../../redux/slices/auth";
 import axios from "../../../axios";
@@ -24,8 +26,9 @@ const UserProfile = () => {
     const isAuth = useSelector(selectIsAuth);
     const userData = useSelector((state) => state.auth.data);
     const classes = useStyles()
-    
-    
+    const { t } = useTranslation()
+
+
     const [user, setUser] = useState({
         avatarUrl: userData?.avatarUrl,
         fullName: userData?.fullName,
@@ -38,7 +41,7 @@ const UserProfile = () => {
             email: userData?.email,
         });
     }, [userData])
-    
+
 
     const [isEditing, setIsEditing] = useState(false);
     const handlePhotoChange = (event) => {
@@ -61,7 +64,7 @@ const UserProfile = () => {
             });
             console.log(response)
         } catch (error) {
-            console.error('Ошибка при обновлении профиля:', error);
+            console.error(`${t('errorUploadUserProf')}`, error);
             // Обработайте ошибку здесь
         }
         setIsEditing(false);
@@ -79,7 +82,7 @@ const UserProfile = () => {
         return <Navigate to="/" />;
     }
     const onClickLogout = () => {
-        if (window.confirm('Вы действительно хотите выйти?')) {
+        if (window.confirm(`${t('exitUserProf')}`)) {
             dispatch(logout())
             window.localStorage.removeItem('token')
         }
@@ -100,14 +103,14 @@ const UserProfile = () => {
                 />
                 <Link to='/add-post' className={classes.link}>
                     <Button variant="outlined" color="primary" >
-                        Создать статью
+                        {t('createReview')}
                     </Button>
                 </Link>
 
-                <div>Дата регистрации профиля: {userData?.createdAt.slice(0, 10).split('-').reverse().join('.')}</div>
+                <div>{t('dataOfREgProf')}: {userData?.createdAt.slice(0, 10).split('-').reverse().join('.')}</div>
 
                 <Button onClick={onClickLogout} variant="outlined" color="secondary">
-                    Выйти из профиля
+                    {t('logOut')}
                 </Button>
             </div>
         </div>

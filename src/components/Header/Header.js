@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
-
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../../i18n/LanguageSwitcher/LanguageSwitcher';
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -16,6 +17,9 @@ import useStyles from './HeaderStyles';
 import DrawerMenu from './Drawer';
 
 const Header = (props) => {
+
+    const { t } = useTranslation();
+    
     const userData = useSelector((state) => state.auth.data);
     const posts = useSelector((state) => state.posts);
     const classes = useStyles();
@@ -52,13 +56,14 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {userData ? `Hello, ${userData?.fullName}!` : "Excio-FM"}                    </Typography>
+                        {userData ? `${t('hello')}, ${userData?.fullName}!` : "Excio-FM"}                    </Typography>
+                        <LanguageSwitcher/>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Search…"
+                            placeholder={t('search')}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -69,6 +74,7 @@ const Header = (props) => {
                     </div>
                 </Toolbar>
             </AppBar>
+
             <DrawerMenu onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
             {/* <DrawerMenu userData={props.userData} userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} /> */}
         </div>

@@ -19,6 +19,8 @@ import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
 
+import { useTranslation } from 'react-i18next';
+
 export const Post = ({
   size,
   id,
@@ -41,6 +43,7 @@ export const Post = ({
   const [like, setLike] = useState(likes?.includes(userData?._id))
   const [likeArray, setLikeArray] = useState()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
 
   useEffect(() => {
@@ -66,7 +69,7 @@ export const Post = ({
       setLikeArray(prevLikes => updatedLikes);
 
     } catch (error) {
-      console.error('Ошибка при обновлении профиля:', error);
+      console.error(`${t('errorPostUpload')}`, error);
     }
   };
 
@@ -77,7 +80,7 @@ export const Post = ({
 
 
   const onClickRemove = () => {
-    if (window.confirm('Вы действительно хотите удалить статью?')) {
+    if (window.confirm(`${t('deleteArticle')}`)) {
       dispatch(fetchRemovePost(id))
     }
   };

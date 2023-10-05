@@ -24,6 +24,8 @@ import useStyles from "./ProfileStyles";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { useTranslation } from 'react-i18next';
+
 import { selectIsAuth } from "../../redux/slices/auth";
 import axios from "../../../axios";
 
@@ -34,6 +36,7 @@ import axios from "../../../axios";
 
 
 const CreateArticle = (props) => {
+    const { t } = useTranslation()
     const classes = useStyles()
     const [dialog, setDialog] = useState(false)
     useEffect(() => {
@@ -79,7 +82,7 @@ const CreateArticle = (props) => {
 
     const isEditing = Boolean(id)
     useEffect(() => {
-    },[isEditing])
+    }, [isEditing])
     const handleChangeFile = async (event) => {
         try {
             const formData = new FormData();
@@ -163,13 +166,13 @@ const CreateArticle = (props) => {
     useEffect(() => {
         // Здесь устанавливаем состояние чекбоксов исходя из значения, полученного с сервера (например, 'BOOK')
         if (tags === 'BOOK') {
-          setState({ ...state, BOOK: true });
+            setState({ ...state, BOOK: true });
         } else if (tags === 'FILM') {
-          setState({ ...state, FILM: true });
+            setState({ ...state, FILM: true });
         } else if (tags === 'GAME') {
-          setState({ ...state, GAME: true });
+            setState({ ...state, GAME: true });
         }
-      }, [tags]);
+    }, [tags]);
 
     if (!window.localStorage.getItem("token") && !isAuth) {
         return <Navigate to="/" />;
@@ -177,7 +180,7 @@ const CreateArticle = (props) => {
 
     return (
         <Dialog open={dialog} >
-            <DialogTitle>Write a review</DialogTitle>
+            <DialogTitle>{t('writeReview')}</DialogTitle>
 
             <DialogContent >
                 <div className={classes.loadingIMG}>
@@ -187,7 +190,7 @@ const CreateArticle = (props) => {
                             variant="outlined"
                             size="large"
                         >
-                            Download IMG
+                            {t('downloadImg')}
                         </Button>
                         <input
                             ref={inputFileRef}
@@ -204,7 +207,7 @@ const CreateArticle = (props) => {
                                     color="error"
                                     onClick={onClickRemoveImage}
                                 >
-                                    delete
+                                    {t('delete')}
                                 </Button>
                                 <img
                                     style={{ width: '20em' }}
@@ -217,7 +220,7 @@ const CreateArticle = (props) => {
                     </div>
 
                 </div>
-                <div>Category:</div>
+                <div>{t('category')}</div>
 
                 <FormControlLabel
                     control={
@@ -228,7 +231,7 @@ const CreateArticle = (props) => {
                             color="primary"
                         />
                     }
-                    label="BOOK"
+                    label={t('book')}
                 />
                 <FormControlLabel
                     control={
@@ -239,7 +242,7 @@ const CreateArticle = (props) => {
                             color="primary"
                         />
                     }
-                    label="FILM"
+                    label={t('film')}
                 />
                 <FormControlLabel
                     control={
@@ -250,17 +253,17 @@ const CreateArticle = (props) => {
                             color="primary"
                         />
                     }
-                    label="GAME"
+                    label={t('game')}
                 />
                 <TextField
-                    label="Heading"
+                    label={t('heading')}
                     placeholder="..."
                     fullWidth
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextField
-                    label="Content"
+                    label={t('content')}
                     fullWidth
                     multiline
                     value={text}
@@ -269,7 +272,7 @@ const CreateArticle = (props) => {
                     rows={16}
                 />
                 <Typography id="rating-slider" gutterBottom>
-                    Estimator:
+                    {t('estimation')}
                 </Typography>
                 <Slider
                     onChange={handleRatingChange}
@@ -290,7 +293,7 @@ const CreateArticle = (props) => {
                     className={classes.button}
                     startIcon={<SaveIcon />}
                 >
-                    {isEditing ? "Save" : "Publish"}
+                    {isEditing ? `${t('save')}` : `${t('publish')}`}
                 </Button>
                 <Link to='/profile'>
                     <IconButton edge="end" onClick={() => setDialog(false)} color="inherit" aria-label="close">

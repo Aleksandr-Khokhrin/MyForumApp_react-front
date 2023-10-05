@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
+
 
 
 import { useTheme } from '@material-ui/core/styles';
@@ -28,27 +30,23 @@ import useStyles from './DrawerStyles';
 
 const DrawerMenu = (props) => {
     const userData = useSelector((state) => state.auth.data);
-    console.log(`userData : ${userData}`)
     const classes = useStyles();
     const theme = useTheme();
     const { open, toggleDrawer } = props;
-    // const toggleDrawer = true;
-    // const open = true;
     const [categoryState, setCategoryState] = useState('')
     const [userName, setUserName] = useState('')
+    const { t } = useTranslation()
     const categoryClick = (event) => {
         const newCategory = event.target.textContent;
         setCategoryState(newCategory);
     }
     useEffect(() => {
-        // props.onSaveClickData(categoryState)
     }, [categoryState]);
 
     const wrapRef = useRef(null)
     const handleClick = (event) => {
         if (wrapRef.current && !wrapRef.current.contains(event.target)) {
             props.toggleDrawer()
-            // console.log('click')
         }
     }
     useEffect(() => {
@@ -57,9 +55,6 @@ const DrawerMenu = (props) => {
             document.addEventListener('mousedown', handleClick)
         }
     }, [wrapRef])
-    // useEffect(() => {
-    //     setUserName(props.userData.fullName)
-    // }, [userName])
 
 
     return (
@@ -76,9 +71,7 @@ const DrawerMenu = (props) => {
                 >
                     <div className={classes.drawerHeader}>
                         <div className={classes.userNameBox}>
-                            {/* {props.userData.fullName === 'Excio-FM' ? props.userData.fullName : `Hello, ${props.userData.fullName}!`} */}
                             Excio-FM
-
                         </div>
                         <IconButton onClick={toggleDrawer}>
                             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -90,13 +83,13 @@ const DrawerMenu = (props) => {
                             ? <Link to='/login' className={classes.link}>
                                 <ListItem button>
                                     <ListItemIcon><AccountBoxOutlinedIcon /></ListItemIcon>
-                                    <ListItemText primary='Login' />
+                                    <ListItemText primary={t('login')} />
                                 </ListItem>
                             </Link>
                             : <Link to='/profile' className={classes.link}>
                                 <ListItem button>
                                     <ListItemIcon><AccountBoxOutlinedIcon /></ListItemIcon>
-                                    <ListItemText primary='Profile' />
+                                    <ListItemText primary={t('myProfile')} />
                                 </ListItem>
                             </Link>
                         }
@@ -104,7 +97,7 @@ const DrawerMenu = (props) => {
                         <Link to='/' className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon><FormatIndentIncreaseOutlinedIcon /></ListItemIcon>
-                                <ListItemText primary='Main Page' />
+                                <ListItemText primary={t('mainPage')} />
                             </ListItem>
                         </Link>
                     </List>
@@ -116,27 +109,27 @@ const DrawerMenu = (props) => {
                         <Link to='/Books' className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon><MenuBookTwoToneIcon /></ListItemIcon>
-                                <ListItemText primary='Books' />
+                                <ListItemText primary={t('books')} />
                             </ListItem>
                         </Link>
                         <Link to='/Films' className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon><MovieOutlinedIcon /></ListItemIcon>
-                                <ListItemText primary='Films' />
+                                <ListItemText primary={t('films')} />
                             </ListItem>
                         </Link>
                         <Link to='/Games' className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon><VideogameAssetOutlinedIcon /></ListItemIcon>
-                                <ListItemText primary='Games' />
+                                <ListItemText primary={t('games')} />
                             </ListItem>
                         </Link>
                         {userData ? <Link to='/My reviews' className={classes.link}>
                             <ListItem button>
                                 <ListItemIcon><AssignmentIcon /></ListItemIcon>
-                                <ListItemText primary='My reviews' />
+                                <ListItemText primary={t('myReviews')} />
                             </ListItem>
-                        </Link>: ''}
+                        </Link> : ''}
                     </List>
                 </Drawer>
             </div>

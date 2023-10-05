@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom'
+import { useTranslation } from "react-i18next";
 
 import { TextField, Button, Typography, Container } from "@material-ui/core";
 import useStyles from './LoginStyle';
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
 
 const Login = () => {
+    const { t } = useTranslation()
+
     const classes = useStyles()
     const isAuth = useSelector(selectIsAuth);
     const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const Login = () => {
     const onSubmit = async (values) => {
         const data = await dispatch(fetchAuth(values));
         if (!data.payload) {
-            return alert("Не удалось авторизоваться!");
+            return alert(`${t('failedLog')}`);
         }
         if ("token" in data.payload) {
             window.localStorage.setItem("token", data.payload.token);
@@ -42,11 +45,11 @@ const Login = () => {
     return (
         <Container className={classes.root}>
             <Typography variant="h4" className={classes.label}>
-                Login
+                {t('login')}
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
-                    label="Email"
+                    label={t('email')}
                     fullWidth
                     margin="normal"
                     variant="outlined"
@@ -55,7 +58,7 @@ const Login = () => {
                     {...register("email", { required: "Укажите почту" })}
                 />
                 <TextField
-                    label="Password"
+                    label={t('password')}
                     type="password"
                     fullWidth
                     margin="normal"
@@ -74,7 +77,7 @@ const Login = () => {
                         fullWidth
                         size="large"
                     >
-                        Login
+                        {t('login')}
                     </Button>
                     <Link to="/register">
                         <Button
@@ -84,7 +87,7 @@ const Login = () => {
                             fullWidth
                             size="large"
                         >
-                            SingIn
+                            {t('singIn')}
                         </Button>
                     </Link>
 

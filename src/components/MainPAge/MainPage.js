@@ -7,11 +7,15 @@ import { Paper } from "@mui/material";
 
 import myImg from '../../image/logo.jpg';
 
+import { useTranslation } from "react-i18next";
+
 import { fetchPosts, fetchTags } from '../redux/slices/posts';
 import { Post } from '../Article/Post';
 // import { CommentsBlock } from '../CommentsBlock';
 
 const MainPage = (props) => {
+
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.data);
@@ -63,31 +67,31 @@ const MainPage = (props) => {
                 >
                     <Tab
                         style={{ width: '33%' }}
-                        label="TOP"
+                        label={t('top')}
                         value="TOP"
                         className={`tab ${activeCategory === 'TOP' ? 'active' : ''}`}
                         onClick={() => setActiveCategory('TOP')}
                     />
                     <Tab
                         style={{ width: '33%' }}
-                        label="new"
+                        label={t('new')}
                         value="new"
                         className={`tab ${activeCategory === 'new' ? 'active' : ''}`}
                         onClick={() => setActiveCategory('new')}
                     />
                     <Tab
                         style={{ width: '33%' }}
-                        label="popular"
+                        label={t('popular')}
                         value="popular"
                         className={`tab ${activeCategory === 'popular' ? 'active' : ''}`}
                         onClick={() => setActiveCategory('popular')}
                     />
                 </Tabs>
             </Paper>
-            
+
 
             <div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em' , alignItems: 'space-between'}}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2em', alignItems: 'space-between' }}>
                     {(isArticlesLoading ? [...Array(5)] : sortedPosts).map((obj, index) =>
                         isArticlesLoading ? (
                             <Post key={index} isLoading={true} />
