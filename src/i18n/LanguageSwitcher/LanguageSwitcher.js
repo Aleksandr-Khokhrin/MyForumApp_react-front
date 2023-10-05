@@ -21,6 +21,7 @@ function LanguageSwitcher() {
       >
         <option className={classes.option} value='en'>ENG</option>
         <option className={classes.option} value="ru">РУС</option>
+        <option className={classes.option} value="uz">UZB</option>
         {/* <option style={{color: 'white', backgroundColor: 'rgb(20, 0, 117, 0.9)'}} value='en'>EN</option>
         <option style={{color: 'white', backgroundColor: 'rgb(20, 0, 117, 0.9)'}} value="es">ES</option> */}
       </Select>
