@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         position: 'fixed',
         width: '100%',
-        zIndex:'999',
+        zIndex: '999',
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -46,17 +46,26 @@ const useStyles = makeStyles((theme) => ({
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '12ch',
+            width: '20ch',
             '&:focus': {
-                width: '20ch',
+                width: '40ch',
             },
         },
     },
+    searchDiv: {
+        display: 'flex', 
+        flexDirection: 'column', 
+        position: 'absolute', 
+        right: '10%', 
+        top: '20%'
+    },
+    searchList: {
+        backgroundColor: 'rgb(255, 255, 255, 0.5)',
+    }
 }));
 
 export default useStyles;

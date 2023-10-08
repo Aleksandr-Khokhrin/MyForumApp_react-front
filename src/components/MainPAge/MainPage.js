@@ -14,9 +14,7 @@ import { Post } from '../Article/Post';
 // import { CommentsBlock } from '../CommentsBlock';
 
 const MainPage = (props) => {
-
     const { t } = useTranslation();
-
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.data);
     const { posts, tags } = useSelector((state) => state.posts);

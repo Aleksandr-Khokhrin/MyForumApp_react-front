@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../../i18n/LanguageSwitcher/LanguageSwitcher';
+import { Navigate } from "react-router-dom";
 
-
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,23 +13,24 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+
 import useStyles from './HeaderStyles';
 
 import DrawerMenu from './Drawer';
 
 const Header = (props) => {
-
     const { t } = useTranslation();
-    
+
     const userData = useSelector((state) => state.auth.data);
     const posts = useSelector((state) => state.posts);
     const classes = useStyles();
     const [drawerState, setDrawerState] = useState(false);
+    const [searchArray, setSearchArray] = useState('');
+    const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
-        // console.log(userData?.userData.fullName)
-        // console.log(userData?.userData.fullName)
-    }, [userData])
+        console.log(searchArray)
+    }, [userData, searchArray])
 
     const openBurger = () => {
         setDrawerState(true);
@@ -40,6 +42,25 @@ const Header = (props) => {
     const saveClickDataHandler = (chooseCategory) => {
         props.onSaveClickData(chooseCategory)
     }
+    const searchValueHandler = (event) => {
+        setSearchText(event.target.value)
+        if (event.target.value === '') {
+            return setSearchArray('')
+        }
+        if (posts) {
+            const searchQuery = event.target.value.toLowerCase()
+            const filteredPosts = posts.posts.items.filter((elem) => {
+                return elem.title.toLowerCase().includes(searchQuery);
+            });
+            setSearchArray(filteredPosts)
+            console.log(searchArray);
+        }
+    };
+    const searchValueNone = () => {
+        setSearchText('')
+        setSearchArray('')
+    }
+
 
 
     return (
@@ -56,27 +77,60 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {userData ? `${t('hello')}, ${userData?.fullName}!` : "Excio-FM"}                    </Typography>
-                        <LanguageSwitcher/>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
+                        {userData ? `${t('hello')}, ${userData?.fullName}!` : "Excio-FM"}
+                    </Typography>
+                    <div className={classes.searchDiv} >
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                placeholder={t('search')}
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                onChange={searchValueHandler}
+                                inputProps={{ 'aria-label': 'search' }}
+                                value={searchText}
+                            />
+
                         </div>
-                        <InputBase
-                            placeholder={t('search')}
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                        
+                        <ul className={classes.searchList} onClick={searchValueNone}>
+                            {searchArray !== '' ? (
+                                searchArray.map((obj, index) => {
+                                    const title = obj.title;
+                                    const searchQuery = searchText.toLowerCase();
+                                    const parts = title.split(new RegExp(`(${searchQuery})`, 'gi'));
+
+                                    return (
+                                        <li key={index}>
+                                            <Link to={`/posts/${obj._id}`}>
+                                                {parts.map((part, i) =>
+                                                    part.toLowerCase() === searchQuery ? (
+                                                        <mark key={i} style={{ backgroundColor: 'yellow', fontWeight: 'bold' }}>
+                                                            {part}
+                                                        </mark>
+                                                    ) : (
+                                                        part
+                                                    )
+                                                )}
+                                            </Link>
+                                        </li>
+                                    );
+                                })
+                            ) : (
+                                ''
+                            )}
+                        </ul>
+
+                       
                     </div>
+                    <LanguageSwitcher />
                 </Toolbar>
             </AppBar>
 
             <DrawerMenu onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} />
-            {/* <DrawerMenu userData={props.userData} userStatePage={props.userStatePage} onSaveClickData={saveClickDataHandler} open={drawerState} toggleDrawer={closeDrawer} /> */}
         </div>
     );
 };
