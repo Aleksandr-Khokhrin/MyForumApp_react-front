@@ -57,14 +57,16 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     searchDiv: {
-        display: 'flex', 
-        flexDirection: 'column', 
-        position: 'absolute', 
-        right: '10%', 
-        top: '20%'
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        right: '10%',
+        top: '20%',
     },
     searchList: {
-        backgroundColor: 'rgb(255, 255, 255, 0.5)',
+        backgroundColor: 'rgb(255, 255, 255)',
+        
+        borderRadius: '10px'
     }
 }));
 

@@ -30,7 +30,7 @@ const Header = (props) => {
 
     useEffect(() => {
         console.log(searchArray)
-    }, [userData, searchArray])
+    }, [userData, searchArray, searchText, posts])
 
     const openBurger = () => {
         setDrawerState(true);
@@ -42,9 +42,11 @@ const Header = (props) => {
     const saveClickDataHandler = (chooseCategory) => {
         props.onSaveClickData(chooseCategory)
     }
+
     const searchValueHandler = (event) => {
         setSearchText(event.target.value)
         if (event.target.value === '') {
+            setSearchText('')
             return setSearchArray('')
         }
         if (posts) {
@@ -64,7 +66,7 @@ const Header = (props) => {
 
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} onClick={searchValueNone} >
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -96,35 +98,36 @@ const Header = (props) => {
                             />
 
                         </div>
-                        <ul className={classes.searchList} onClick={searchValueNone}>
-                            {searchArray !== '' ? (
-                                searchArray.map((obj, index) => {
-                                    const title = obj.title;
-                                    const searchQuery = searchText.toLowerCase();
-                                    const parts = title.split(new RegExp(`(${searchQuery})`, 'gi'));
+                        <ul className={classes.searchList}>
+                            {
+                                searchArray !== '' ? (
+                                    searchArray.map((obj, index) => {
+                                        const title = obj.title;
+                                        const searchQuery = searchText.toLowerCase();
+                                        const parts = title.split(new RegExp(`(${searchQuery})`, 'gi'));
 
-                                    return (
-                                        <li key={index}>
-                                            <Link to={`/posts/${obj._id}`}>
-                                                {parts.map((part, i) =>
-                                                    part.toLowerCase() === searchQuery ? (
-                                                        <mark key={i} style={{ backgroundColor: 'yellow', fontWeight: 'bold' }}>
-                                                            {part}
-                                                        </mark>
-                                                    ) : (
-                                                        part
-                                                    )
-                                                )}
-                                            </Link>
-                                        </li>
-                                    );
-                                })
-                            ) : (
-                                ''
-                            )}
+                                        return (
+                                            <div>
+                                                <span style={{ color: 'rgb(0, 0, 255)' }}>{index + 1}. </span>
+                                                <Link onClick={searchValueNone} to={`/posts/${obj._id}`} style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)' }}>
+                                                    {parts.map((part, i) =>
+                                                        part.toLowerCase() === searchQuery ? (
+                                                            <mark key={i} style={{ backgroundColor: 'rgb(135, 206, 235)', fontWeight: 'bold' }}>
+                                                                {part}
+                                                            </mark>
+
+                                                        ) : (
+                                                            part
+                                                        )
+                                                    )}
+                                                </Link>
+                                                <Navigate to="/" />
+                                            </div>
+                                        );
+                                    })
+                                ) : ('')
+                            }
                         </ul>
-
-                       
                     </div>
                     <LanguageSwitcher />
                 </Toolbar>
