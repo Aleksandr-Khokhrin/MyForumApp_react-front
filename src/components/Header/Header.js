@@ -46,7 +46,7 @@ const Header = (props) => {
     const searchValueHandler = (event) => {
         setSearchText(event.target.value)
         if (event.target.value === '') {
-            setSearchText('')
+            // setSearchText('')
             return setSearchArray('')
         }
         if (posts) {
@@ -98,9 +98,9 @@ const Header = (props) => {
                             />
 
                         </div>
-                        <ul className={classes.searchList}>
-                            {
-                                searchArray !== '' ? (
+                            {searchArray != '' ? 
+                                
+                        <div className={classes.searchList} >{
                                     searchArray.map((obj, index) => {
                                         const title = obj.title;
                                         const searchQuery = searchText.toLowerCase();
@@ -109,7 +109,7 @@ const Header = (props) => {
                                         return (
                                             <div>
                                                 <span style={{ color: 'rgb(0, 0, 255)' }}>{index + 1}. </span>
-                                                <Link onClick={searchValueNone} to={`/posts/${obj._id}`} style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)' }}>
+                                                <Link className={classes.post} onClick={searchValueNone} to={`/posts/${obj._id}`} style={{ }}>
                                                     {parts.map((part, i) =>
                                                         part.toLowerCase() === searchQuery ? (
                                                             <mark key={i} style={{ backgroundColor: 'rgb(135, 206, 235)', fontWeight: 'bold' }}>
@@ -124,10 +124,10 @@ const Header = (props) => {
                                                 <Navigate to="/" />
                                             </div>
                                         );
-                                    })
-                                ) : ('')
+                                    })}
+                                    </div>
+                                 : <div></div>
                             }
-                        </ul>
                     </div>
                     <LanguageSwitcher />
                 </Toolbar>

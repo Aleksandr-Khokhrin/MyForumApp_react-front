@@ -65,8 +65,24 @@ const useStyles = makeStyles((theme) => ({
     },
     searchList: {
         backgroundColor: 'rgb(255, 255, 255)',
-        
-        borderRadius: '10px'
+        borderRadius: '10px',
+        padding: '1em 0.5em 0.5em 0.5em',
+        width: '35ch',
+        marginLeft: '1em',
+        marginTop: '0.5em',
+        boxShadow: '0 2px 7px rgba(224, 255, 255, 1)',
+        border: '1px rgb(255, 255, 255) solid'
+    },
+    post: {
+        textDecoration: 'none',
+        color: 'rgb(0, 0, 0) !important',
+        letterSpacing: 2,
+        fontSize: '1.1em',
+        '&:hover': { // Добавляем стили для hover
+            color: 'rgb(255, 255, 255) !important', // Стили для элемента Select
+            backgroundColor: 'rgb(0, 0, 255) !important',
+            transition: 'background-color 2.7s ease, color 0.7s ease !important', // Объединяем переходы в одном правиле
+        },
     }
 }));
 
