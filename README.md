@@ -1,1 +1,1 @@
-https://itransition-diplom-forum-react-29c144514dab.herokuapp.com/
+https://itransition-diplom-forum-react-dce6a50e03e7.herokuapp.com/
