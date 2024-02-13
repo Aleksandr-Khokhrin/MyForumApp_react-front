@@ -44,7 +44,8 @@
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/8a84ec0d-fe29-4b39-8b31-3a30b0e69866)
 10. В приложении есть смена языка интерфейса. Данная функция работает благодаря библиотеки i18next с использованием хука useTranslation по примеру ${t('hello')}. hello это ключ, у которого есть разные значения, соответствующие выбранному языку.
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/2f045352-8567-4c4f-832d-f9fbe5b7fb32)
-11. Также у каждой рецензии есть колличество просмотров и оценка автора. 
+11. Также у каждой рецензии есть колличество просмотров и оценка автора.
+
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/a4535184-42b0-42d9-8b94-4f3118805292)
 
 Инструментарий:
