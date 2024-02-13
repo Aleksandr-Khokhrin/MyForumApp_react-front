@@ -1,4 +1,8 @@
-![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/4ddef83e-c3a7-4471-b959-4d759b275980)---"Forum"---
+---"Forum"---
+
+
+![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/539b78e8-1101-4244-a7cf-6e9b557bcc4c)
+
 
 Ссылка на проект: https://itransition-diplom-forum-react-dce6a50e03e7.herokuapp.com/
 
