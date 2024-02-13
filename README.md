@@ -40,6 +40,8 @@
 7. Пользователи в приложении могут ставить лайки. Для того, чтобы считать колличество лайков я просто пушил id пользователей в массив с лайками и при клике на лайк у пользователя добавлял его в массив или удалял из него, если пользователь кликает уже по активному лайку. Тут для отслеживания событий я использовал useState и usEeffect.
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/c5992e30-88b6-4f3c-85aa-a1a04aa53783)
 8. Также в header приложения есть search по названиям с импользования filter.
+![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/3467a939-b677-4cb2-a65e-cebead15c8be)
+![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/8a84ec0d-fe29-4b39-8b31-3a30b0e69866)
 9. В приложении есть смена языка интерфейса. Данная функция работает благодаря библиотеки i18next с использованием хука useTranslation по примеру ${t('hello')}. hello это ключ, у которого есть разные значения, соответствующие выбранному языку.
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/2f045352-8567-4c4f-832d-f9fbe5b7fb32)
 10. Также у каждой рецензии есть колличество просмотров и оценка автора. 
