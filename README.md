@@ -27,9 +27,8 @@
 3. По аналогичному сценарию также в приложении доступна функция просмотра одной рецензии. При клику на название открывается компонент за данными об одной статье. 
 тут я использовал Redux-router(для логистики в приложении) и useParams(для передачи id в компонент с отображением выбранного объекта).
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/79a6d46a-2b95-43d9-b3d9-5403d53fbaf2)
-
-Тут запрос я сделал напрямую. В основном я использую готовый запрос через dispatch
-![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/7c20f754-7058-43c3-a5c1-edfde2c0dfba)
+ Тут запрос я сделал напрямую. В основном я использую готовый запрос через dispatch
+ ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/7c20f754-7058-43c3-a5c1-edfde2c0dfba)
 
 4. Создать рецензию можно через личный кабинет. При создании заполняются текстовые поля, подгружается картинка(отправляется на сервер и вместо неё приходит ссылка на изображение) через метод post.
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/2491698b-66d0-4b8c-ab76-cb9822c05e43)
