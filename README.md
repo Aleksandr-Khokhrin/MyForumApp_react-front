@@ -2,9 +2,6 @@
 
 ![image](https://github.com/Aleksandr-Khokhrin/MyForumApp_react-front/assets/147053338/539b78e8-1101-4244-a7cf-6e9b557bcc4c)
 
-
-Ссылка на проект: https://itransition-diplom-forum-react-dce6a50e03e7.herokuapp.com/
-
 Внимание! Страница может грузиться около минуты из-за того, что сервер Heroku спит. Почитайте пока описание)
 
 Краткое описание инструментария:
